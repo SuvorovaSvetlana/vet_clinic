@@ -22,7 +22,7 @@ export class OwnerController {
   async findOne(@Param('id') id: string) {
     return await this.ownerService.findOne(+id);
   }
-
+   
   @Patch(':id')
   async update(@Param('id') id: string, @Body()  updateOwnerDto: UpdateOwnerDto) {
     return await this.ownerService.update(+id, updateOwnerDto);

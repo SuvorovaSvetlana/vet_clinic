@@ -2,33 +2,34 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { VetService } from './vet.service';
 import { CreateVetDto } from './dto/create-vet.dto';
 import { UpdateVetDto } from './dto/update-vet.dto';
+import { Vet } from './entities/vet.entity';
 
-@Controller('vet')
+@Controller('vets')
 export class VetController {
   constructor(private readonly vetService: VetService) {}
 
   @Post()
-  create(@Body() createVetDto: CreateVetDto) {
-    return this.vetService.create(createVetDto);
+  async create(@Body() createVetDto: CreateVetDto): Promise<Vet> {
+    return await this.vetService.create(createVetDto);
   }
 
   @Get()
-  findAll() {
-    return this.vetService.findAll();
+  async findAll() {
+    return await this.vetService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vetService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.vetService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVetDto: UpdateVetDto) {
-    return this.vetService.update(+id, updateVetDto);
+  async update(@Param('id') id: string, @Body() updateVetDto: UpdateVetDto) {
+    return await this.vetService.update(+id, updateVetDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vetService.remove(+id);
+  async remove(@Param('id') id: string): Promise<void> {
+    return await this.vetService.remove(+id);
   }
 }
