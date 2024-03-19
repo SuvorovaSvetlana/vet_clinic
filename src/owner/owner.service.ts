@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOwnerDto } from './dto/create-owner.dto';
 import { UpdateOwnerDto } from './dto/update-owner.dto';
-import { UpdateAnimalDto } from 'src/animal/dto/update-animal.dto';
 import { Repository} from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Owner } from './entities/owner.entity'
-import { OwnerHttpModule } from './owner-http.module';
-import { Animal } from 'src/animal/entities/animal.entity';
+
 
 @Injectable()
 export class OwnerService {
@@ -51,17 +49,12 @@ export class OwnerService {
         id
       }
     }) 
-    const {full_name, contacts, animals} = updateOwnerDto;
+    const {full_name, contacts} = updateOwnerDto;
     if(full_name){
       owner.full_name = full_name;
     }
     if(contacts){
       owner.contacts = contacts;
-    }
-    if(animals){
-      for (const animal of animals){
-        console.log(animal)
-      }
     }
     return await this.ownerRepository.save(owner);
   }

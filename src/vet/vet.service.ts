@@ -1,26 +1,64 @@
 import { Injectable } from '@nestjs/common';
 import { CreateVetDto } from './dto/create-vet.dto';
 import { UpdateVetDto } from './dto/update-vet.dto';
+import { Vet } from './entities/vet.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class VetService {
-  create(createVetDto: CreateVetDto) {
-    return 'This action adds a new vet';
+  constructor(
+    @InjectRepository(Vet)
+    private readonly vetRepository: Repository<Vet>
+  ) {}
+
+
+  async create(createVetDto: CreateVetDto): Promise <Vet> {
+    const vet = new Vet();
+    vet.full_name = createVetDto.full_name;
+    vet.speciality = createVetDto.speciality;
+    return await this.vetRepository.save(vet);
   }
 
-  findAll() {
-    return `This action returns all vet`;
+  async findAll(): Promise <Vet[]> {
+    return await this.vetRepository.find({
+      relations:{
+        visits: true
+      }
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} vet`;
+  async findOne(id: number): Promise <Vet> {
+    return await this.vetRepository.findOne({
+      relations:{
+        visits: true
+      },
+      where: {
+        id
+      }
+    });
   }
 
-  update(id: number, updateVetDto: UpdateVetDto) {
-    return `This action updates a #${id} vet`;
+  async update(id: number, updateVetDto: UpdateVetDto): Promise<Vet> {
+    const vet = await this.vetRepository.findOne({
+      relations: {
+        visits: true
+      },
+      where: {
+        id
+      }
+    });
+    const {full_name, speciality} = updateVetDto;
+    if(full_name){
+      vet.full_name = full_name;
+    }
+    if(speciality){
+      vet.speciality = speciality;
+    }
+    return await this.vetRepository.save(vet);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} vet`;
+  async remove(id: number): Promise<void> {
+    await this.vetRepository.delete(id);
   }
 }

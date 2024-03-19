@@ -1,6 +1,7 @@
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Animal } from "src/animal/entities/animal.entity"
-import {Owner} from "src/owner/entities/owner.entity"
+import { Vet } from "src/vet/entities/vet.entity";
+
 
 @Entity()
 export class Visit {
@@ -15,7 +16,8 @@ export class Visit {
       @ManyToMany(() => Animal)
       @JoinTable()
       animals: Animal[];
-      @ManyToMany(()=> Owner)
+      @ManyToMany(()=> Vet, (vet) => vet.visits, {cascade: true})
       @JoinTable()
-      Owners: Owner[]
+      vets: Vet[];
+     
 }
