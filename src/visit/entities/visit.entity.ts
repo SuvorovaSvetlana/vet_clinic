@@ -8,6 +8,8 @@ export class Visit {
       @PrimaryGeneratedColumn()
       id: number;
       @Column()
+      date: Date;
+      @Column()
       vetName: string;
       @Column()
       animalName: string;
@@ -19,5 +21,4 @@ export class Visit {
       @ManyToMany(()=> Vet, (vet) => vet.visits, {cascade: true})
       @JoinTable()
       vets: Vet[];
-     
 }
