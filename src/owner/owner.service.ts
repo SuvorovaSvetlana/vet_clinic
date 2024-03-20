@@ -22,24 +22,17 @@ export class OwnerService {
   }
 
   async findAll(): Promise <Owner[]> {
-    return await this.ownerRepository.find({
-      relations:{
-        animals: true
-      }
-    });
+    return await this.ownerRepository.find();
   }
 
-   findOne(id: number): Promise <Owner> {
-    return  this.ownerRepository.findOne({
-      relations:{
-        animals: true
-      },
-      where: {
-        id
-      }
-    }) ;
+  async findOne(id: number): Promise <Owner> {
+    return await this.ownerRepository.findOne({where: {id}});
   }
 
+  async allAnimalsOfOwner(id: number): Promise <Owner>{
+    return await this.ownerRepository.findOne({relations:["animals"], where: {id}})
+  }
+    
   async update(id: number, updateOwnerDto: UpdateOwnerDto): Promise <Owner> {
     const owner = await this.ownerRepository.findOne({
       relations:{

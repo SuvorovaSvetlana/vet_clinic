@@ -23,18 +23,11 @@ export class AnimalService {
   }
 
   async findAll(): Promise <Animal[]> {
-    return await this.animalRepository.find({
-      relations:{
-        owner:true
-      }
-    });
+    return await this.animalRepository.find();
   }
 
   async findOne(id: number): Promise<Animal>{
     return await this.animalRepository.findOne({
-      relations:{
-        owner: true,
-      },
       where: {
         id
       }

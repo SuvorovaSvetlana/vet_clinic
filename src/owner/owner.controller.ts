@@ -18,6 +18,12 @@ export class OwnerController {
     return await this.ownerService.findAll();
   }
 
+  @Get(':id/animals')
+  async allAnimalsOfOwner(@Param('id') id: string){
+    return await this.ownerService.allAnimalsOfOwner(+id);
+  }
+
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.ownerService.findOne(+id);

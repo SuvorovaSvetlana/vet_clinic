@@ -4,14 +4,16 @@ import { Repository } from 'typeorm';
 import { CreateVisitDto } from './dto/create-visit.dto';
 import { UpdateVisitDto } from './dto/update-visit.dto';
 import { Visit } from './entities/visit.entity';
+import { VisitRepository } from './visit.repository';
 
 @Injectable()
 export class VisitService {
-  constructor(
+  
+ constructor(
     @InjectRepository(Visit)
     private readonly visitRepository: Repository<Visit>
   ){}
-
+  
   async create(createVisitDto: CreateVisitDto) {
     const visit  = new Visit();
     visit.date = new Date();
