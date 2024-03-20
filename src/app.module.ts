@@ -26,9 +26,7 @@ import { Vet } from './vet/entities/vet.entity';
         password: ConfigService.get('DB_PASSWORD'),
         database: ConfigService.get('DB_NAME'),
         synchronize: true,
-        logging: true,
-
-        entities: [Animal, Owner, Vet, Visit] // [__dirname + 'src/**/*.etity/*{.ts, .js}']
+        entities: [Animal, Owner, Vet, Visit] 
       }),
       inject: [ConfigService]
     }),
