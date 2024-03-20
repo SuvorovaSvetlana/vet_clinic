@@ -1,12 +1,27 @@
 import { Owner } from "src/owner/entities/owner.entity";
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+ 
+export enum AnimalType {
+      dog = 'dog',
+      cat = 'cat',
+      mouse = 'mouse',
+      hamster ='hamster',
+      rodent = 'rodent',
+      fish = 'fish',
+      bird = 'bird',
+      reptile = 'reptile'
+} 
 
 @Entity()
 export class Animal {
       @PrimaryGeneratedColumn()
       id: number;
-      @Column()
-      animal_type: string;
+      @Column({
+            type: "enum",
+            enum: AnimalType
+      })
+      animal_type: AnimalType
+      
       @Column()
       name: string;
       @Column()
@@ -20,7 +35,6 @@ export class Animal {
             eager: true,
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
-            nullable: false,
       })
       owner: Owner
 }

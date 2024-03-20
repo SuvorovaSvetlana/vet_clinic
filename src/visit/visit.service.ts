@@ -28,19 +28,11 @@ export class VisitService {
   }
 
   async findOne(id: number): Promise<Visit> {
-    return await this.visitRepository.findOne({
-      where: {
-        id
-      } 
-    });
+    return await this.visitRepository.findOne({where: {id} });
   }
 
   async update(id: number, updateVisitDto: UpdateVisitDto): Promise<Visit> {
-    const visit = await this.visitRepository.findOne({
-      where: {
-        id
-      }
-    });
+    const visit = await this.visitRepository.findOne({where: {id}});
     const {date, vetName, animalName, visitPurpose} = updateVisitDto;
     if(date){
       visit.date = date;
