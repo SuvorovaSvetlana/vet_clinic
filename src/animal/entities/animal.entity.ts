@@ -1,6 +1,6 @@
 import { Owner } from "src/owner/entities/owner.entity";
 import { Visit } from "src/visit/entities/visit.entity";
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
  
 export enum AnimalType {
       dog = 'dog',
