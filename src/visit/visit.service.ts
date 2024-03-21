@@ -26,7 +26,7 @@ export class VisitService {
   async findAll(): Promise<Visit[]> {
     return await this.visitRepository.find();
   }
-
+  
   async findOne(id: number): Promise<Visit> {
     return await this.visitRepository.findOne({where: {id} });
   }

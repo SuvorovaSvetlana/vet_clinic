@@ -1,5 +1,6 @@
 import { Owner } from "src/owner/entities/owner.entity";
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { Visit } from "src/visit/entities/visit.entity";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
  
 export enum AnimalType {
       dog = 'dog',
@@ -36,5 +37,10 @@ export class Animal {
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
       })
-      owner: Owner
+      owner: Owner;
+      @OneToMany(() => Visit,
+      visit => visit.animal,{
+            cascade: true
+      })
+      visits: Visit[];
 }

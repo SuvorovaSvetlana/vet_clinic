@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Animal } from "src/animal/entities/animal.entity"
 import { Vet } from "src/vet/entities/vet.entity";
 
@@ -15,10 +15,22 @@ export class Visit {
       animalName: string;
       @Column()
       visitPurpose: string;
-      @ManyToMany(() => Animal)
-      @JoinTable()
-      animals: Animal[];
-      @ManyToMany(()=> Vet, (vet) => vet.visits, {cascade: true})
-      @JoinTable()
-      vets: Vet[];
+      @ManyToOne(()=> Animal,
+      animal => animal.visits,
+      {
+            orphanedRowAction: "delete",
+            eager: true,
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+      })
+      animal: Animal;
+      @ManyToOne(()=>Vet, 
+      vet => vet.visits,
+      {
+            orphanedRowAction: "delete",
+            eager: true,
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+      })
+      vet: Vet;
 }
