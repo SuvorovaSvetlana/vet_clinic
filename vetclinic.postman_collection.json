@@ -34,7 +34,34 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "2"
+							"value": "23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all animals of one owner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/owners/:id/animals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"owners",
+						":id",
+						"animals"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "22"
 						}
 					]
 				}
@@ -48,7 +75,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"full_name\": \"Pem\",\r\n    \"contacts\": \"123456\",\r\n    \"animal\": [{\r\n        \"animal_type\": \"cat\",\r\n        \"name\": \"Kety\",\r\n        \"age\": 5\r\n    }]\r\n}",
+					"raw": "{\r\n    \"full_name\": \"PeterMary\",\r\n    \"contacts\": \"456\",\r\n    \"animals\": [\r\n    {\r\n        \"animal_type\": \"hamster\",\r\n        \"name\": \"Sam\",\r\n        \"age\": 1\r\n    },\r\n    {\r\n        \"animal_type\": \"dog\",\r\n        \"name\": \"Bob\",\r\n        \"age\": 2\r\n    }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -66,7 +93,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"full_name\": \"Sam New\",\r\n    \"contacts\": \"987456\"\r\n}",
+					"raw": "{\r\n    \"full_name\": \"Mary\",\r\n    \"contacts\": \"4567\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,7 +114,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "7"
+							"value": "23"
 						}
 					]
 				}
@@ -113,7 +140,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "3"
+							"value": "20"
 						}
 					]
 				}
@@ -148,7 +175,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "24"
 						}
 					]
 				}
@@ -162,7 +189,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"animal_type\": \"cat\",\r\n    \"name\": \"Kety\",\r\n    \"age\": 5,\r\n    \"owner\": {\r\n        \"full_name\": \"Pem\",\r\n        \"contacts\": \"7894561\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"animal_type\": \"cat\",\r\n    \"name\": \"Katy\",\r\n    \"age\": 5,\r\n    \"owner\": {\r\n        \"id\": 22\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -201,7 +228,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "7"
+							"value": "28"
 						}
 					]
 				}
@@ -227,7 +254,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "29"
 						}
 					]
 				}
@@ -262,7 +289,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "11"
 						}
 					]
 				}
@@ -276,7 +303,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"full_name\": \"Nurse2\",\r\n    \"speciality\": \"nurse\"\r\n}",
+					"raw": "{\r\n    \"full_name\": \"Victor\",\r\n    \"speciality\": \"surgen\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -294,7 +321,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"full_name\": \"Mary\",\r\n    \"speciality\": \"New nurse\"\r\n}",
+					"raw": "{\r\n    \"full_name\": \"Mary\",\r\n    \"speciality\": \"nurse\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -315,7 +342,33 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "one  vet",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/vets/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"vets",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "11"
 						}
 					]
 				}
@@ -350,7 +403,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "13"
 						}
 					]
 				}
@@ -364,7 +417,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"03/04/2024\",\r\n    \"vetName\": \"Doc1\",\r\n    \"animalName\": \"Lily\",\r\n    \"visitPurpose\": \"planned\"\r\n}",
+					"raw": "{\r\n    \"date\": \"Date\",\r\n    \"vetName\": \"Victor\",\r\n    \"vet\":{\r\n        \"id\": 13\r\n    },\r\n    \"animalName\": \"Mary\",\r\n    \"animal\": {\r\n        \"id\": 25\r\n    },\r\n    \"visitPurpose\": \"planned\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -394,7 +447,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "8"
 						}
 					]
 				}
@@ -408,7 +461,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"03/04/2024\",\r\n    \"vetName\": \"new Doc1\",\r\n    \"animalName\": \"new Lily\",\r\n    \"visitPurpose\": \"new planned\"\r\n}",
+					"raw": "{\r\n    \"date\": \"2024-03-21 12:35\",\r\n    \"vetName\": \"Victor\",\r\n    \"vet\":{\r\n        \"id\": 13\r\n    },\r\n    \"animalName\": \"Mary\",\r\n    \"animal\": {\r\n        \"id\": 25\r\n    },\r\n    \"visitPurpose\": \"planned\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -429,7 +482,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "16"
 						}
 					]
 				}
