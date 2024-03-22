@@ -1,16 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
-import { Animal, AnimalType} from './entities/animal.entity';
-import { Repository } from 'typeorm'; 
+import { Animal} from './entities/animal.entity';
+import { AnimalRepository } from './animal.repositopy';
 
 @Injectable()
 export class AnimalService {
-  constructor(
-    @InjectRepository(Animal)
-    private readonly animalRepository: Repository<Animal>
-  ){}
+  constructor(private readonly animalRepository: AnimalRepository){}
 
   async create (createAnimalDto: CreateAnimalDto): Promise <Animal>{
     const animal = new Animal();
@@ -18,7 +14,6 @@ export class AnimalService {
     animal.name = createAnimalDto.name;
     animal.age = createAnimalDto.age;
     animal.owner = createAnimalDto.owner;
-
     return await this.animalRepository.save(animal);
   }
 
@@ -27,25 +22,11 @@ export class AnimalService {
   }
 
   async findOne(id: number): Promise<Animal>{
-    return await this.animalRepository.findOne({
-      relations:{
-        visits: true,
-      },
-      where: {
-        id
-      }
-    });
+    return await this.animalRepository.findOne(id);
   }
 
   async update(id: number, updateAnimalDto: UpdateAnimalDto) {
-    const animal = await this.animalRepository.findOne({
-      relations:{
-        owner: true,
-      },
-      where: {
-        id
-      }
-    });
+    const animal = await this.animalRepository.findOne(id);
     const { animal_type, name, age } = updateAnimalDto;
     if(animal_type){
       animal.animal_type = animal_type;
