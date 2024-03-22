@@ -28,6 +28,9 @@ export class AnimalService {
 
   async findOne(id: number): Promise<Animal>{
     return await this.animalRepository.findOne({
+      relations:{
+        visits: true,
+      },
       where: {
         id
       }

@@ -39,6 +39,7 @@ export class VetService {
     });
   }
 
+
   async update(id: number, updateVetDto: UpdateVetDto): Promise<Vet> {
     const vet = await this.vetRepository.findOne({
       relations: {

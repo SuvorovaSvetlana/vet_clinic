@@ -23,11 +23,6 @@ export class VisitController {
     return await this.visitService.findOne(+id);
   }
 
-  @Get(':vetId')
-  async findAllVisitsOfOneVet(@Param('vetId') vetId: string){
-    return await this.visitService.findAllVisitsOfOneVet(+vetId);
-  }
-
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateVisitDto: UpdateVisitDto) {
     return await this.visitService.update(+id, updateVisitDto);

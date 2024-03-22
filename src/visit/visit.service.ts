@@ -33,11 +33,6 @@ export class VisitService {
     return await this.visitRepository.findOne({where: {id} });
   }
 
-  async findAllVisitsOfOneVet(vetId: number): Promise<Visit[]>{
-    return await this.visitRepository.find({
-      relations:{vet: true}, where: {id: vetId }})
-  }
-
   async update(id: number, updateVisitDto: UpdateVisitDto): Promise<Visit> {
     const visit = await this.visitRepository.findOne({where: {id} });
     const {date, vetName, vet,  animalName, animal, visitPurpose} = updateVisitDto;
