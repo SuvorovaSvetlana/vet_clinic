@@ -2,16 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateVetDto } from './dto/create-vet.dto';
 import { UpdateVetDto } from './dto/update-vet.dto';
 import { Vet } from './entities/vet.entity';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { VetRepository } from './vet.repository';
 
 @Injectable()
 export class VetService {
-  constructor(
-    @InjectRepository(Vet)
-    private readonly vetRepository: Repository<Vet>
-  ) {}
-
+  constructor(private readonly vetRepository: VetRepository) {}
 
   async create(createVetDto: CreateVetDto): Promise <Vet> {
     const vet = new Vet();
@@ -21,34 +16,15 @@ export class VetService {
   }
 
   async findAll(): Promise <Vet[]> {
-    return await this.vetRepository.find({
-      relations:{
-        visits: true
-      }
-    });
+    return await this.vetRepository.find();
   }
 
   async findOne(id: number): Promise <Vet> {
-    return await this.vetRepository.findOne({
-      relations:{
-        visits: true
-      },
-      where: {
-        id
-      }
-    });
+    return await this.vetRepository.findOne(id);
   }
 
-
   async update(id: number, updateVetDto: UpdateVetDto): Promise<Vet> {
-    const vet = await this.vetRepository.findOne({
-      relations: {
-        visits: true
-      },
-      where: {
-        id
-      }
-    });
+    const vet = await this.vetRepository.findOne(id);
     const {full_name, speciality} = updateVetDto;
     if(full_name){
       vet.full_name = full_name;

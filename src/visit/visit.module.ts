@@ -8,6 +8,6 @@ import { VisitRepository } from './visit.repository';
 @Module({
   imports: [TypeOrmModule.forFeature([Visit]), TypeOrmModule.forFeature([VisitRepository])],
   controllers: [VisitController],
-  providers: [VisitService],
+  providers: [VisitService, VisitRepository],
 })
 export class VisitModule {}

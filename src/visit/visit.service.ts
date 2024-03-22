@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { CreateVisitDto } from './dto/create-visit.dto';
 import { UpdateVisitDto } from './dto/update-visit.dto';
 import { Visit } from './entities/visit.entity';
@@ -8,12 +6,8 @@ import { VisitRepository } from './visit.repository';
 
 @Injectable()
 export class VisitService {
-  //constructor (private readonly visitRepository: VisitRepository) {}
- constructor(
-    @InjectRepository(Visit)
-    private readonly visitRepository: Repository<Visit>
-  ){}
-  
+  constructor (private readonly visitRepository: VisitRepository) {}
+ 
   async create(createVisitDto: CreateVisitDto) {
     const visit  = new Visit();
     visit.date = new Date();
@@ -30,11 +24,11 @@ export class VisitService {
   }
   
   async findOne(id: number): Promise<Visit> {
-    return await this.visitRepository.findOne({where: {id} });
+    return await this.visitRepository.findOne(id);
   }
 
   async update(id: number, updateVisitDto: UpdateVisitDto): Promise<Visit> {
-    const visit = await this.visitRepository.findOne({where: {id} });
+    const visit = await this.visitRepository.findOne(id);
     const {date, vetName, vet,  animalName, animal, visitPurpose} = updateVisitDto;
     if(date){
       visit.date = date;
