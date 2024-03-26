@@ -19,4 +19,5 @@ export class OwnerRepository{
       public async delete(id: number){
             return await this.ownerRepo.delete(id)
       }
+
 }
