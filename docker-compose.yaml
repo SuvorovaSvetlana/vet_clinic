@@ -15,6 +15,7 @@ services:
     container_name: postgres_db
     environment:
       POSTGRES_DB: vetclinic
+      POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: example
     ports:
       - "5432:5432"

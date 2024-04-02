@@ -23,7 +23,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       migrations: ['dist/src/shared/typeorm/migrations/*.{ts,js}'],
       logging: false,
       autoLoadEntities: true,
-      synchronize: false, // never use TRUE in production!
+      synchronize: false,
     };
   }
 }

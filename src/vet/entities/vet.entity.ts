@@ -1,5 +1,5 @@
-import { Visit } from "src/visit/entities/visit.entity";
 import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Visit } from "../../visit/entities/visit.entity";
 
 @Entity()
 export class Vet {

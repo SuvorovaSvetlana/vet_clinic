@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 
-const envPath = path.resolve(__dirname, '../../.env');
+const envPath = path.resolve(__dirname, '../../../.env');
 dotenv.config({ path: envPath });
 
 export const AppDataSource = new DataSource({
@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [__dirname + '/entities/**/*.{js,ts}'],
-      migrations: [__dirname + '/dist/src/migrations/*.js'],
+      migrations: [__dirname + '/dist/src/migrations/*.{js,ts}'],
       migrationsTableName: 'typeorm_migrations',
 });
 
