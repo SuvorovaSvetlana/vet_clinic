@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=20.10.0
+ARG NODE_VERSION=18.16.0
 
 # Use node image for base image for all stages.
 FROM node:${NODE_VERSION}-alpine as base
@@ -12,6 +12,8 @@ WORKDIR /usr/src/app
 COPY . .
 # Run the build script.
 RUN npm install
+
+RUN npm run build
 
 # Expose the port that the application listens on.
 EXPOSE 3030

@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateAnimalDto } from './create-animal.dto';
 import { AnimalType } from '../entities/animal.entity';
-import { Owner } from '../../owner/entities/owner.entity';
+import { Owner } from '../../owner/owner.entity';
 
 export class UpdateAnimalDto extends PartialType(CreateAnimalDto) {
       animal_type: AnimalType;

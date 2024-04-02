@@ -8,20 +8,16 @@ import { OwnerModule } from './owner/owner.module';
 import { VetModule } from './vet/vet.module';
 import { VisitModule } from './visit/visit.module';
 import { TypeOrmConfigService } from './shared/typeorm/ormconfig';
-import { DataSource } from 'typeorm/data-source/DataSource';
+import AppDataSource from './shared/typeorm/dataSource';
 
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
-      async dataSourceFactory(options) {
-        if (!options) {
-          throw new Error('Invalid options passed');
-        }
-        return new DataSource(options);
-      },
-    
+      dataSourceFactory: async () => {
+        return AppDataSource;
+      }
     }),
     OwnerModule,
     VetModule,

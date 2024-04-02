@@ -1,5 +1,5 @@
 
-import { Owner } from "../../owner/entities/owner.entity";
+import { Owner } from "../../owner/owner.entity";
 import { AnimalType } from "../entities/animal.entity";
 
 

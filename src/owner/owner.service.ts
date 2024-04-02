@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOwnerDto } from './dto/create-owner.dto';
 import { UpdateOwnerDto } from './dto/update-owner.dto';
-import { Owner } from './entities/owner.entity'
+import { Owner } from './owner.entity'
 import { OwnerRepository } from './owner.repository';
 
 

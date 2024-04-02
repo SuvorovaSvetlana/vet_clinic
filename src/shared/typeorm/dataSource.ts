@@ -1,26 +1,20 @@
 import { DataSource } from 'typeorm';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
+import { Animal } from '../../animal/entities/animal.entity';
+import { Owner } from '../../owner/owner.entity';
 
 const envPath = path.resolve(__dirname, '../../../.env');
 dotenv.config({ path: envPath });
-
-export const AppDataSource = new DataSource({
+const AppDataSource = new DataSource({
       type: 'postgres',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [__dirname + '/entities/**/*.{js,ts}'],
-      migrations: [__dirname + '/dist/src/migrations/*.{js,ts}'],
-      migrationsTableName: 'typeorm_migrations',
+      entities: [Animal, Owner],
+      migrations: [__dirname + 'build/shared/typeorm/migrations/*.{js,ts}'],
 });
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log('Data Source has been initialized!');
-  })
-  .catch((err) => {
-    console.error('Error during Data Source initialization', err);
-  });
+export default AppDataSource;
