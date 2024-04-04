@@ -6,13 +6,18 @@ export class Vet {
       @PrimaryGeneratedColumn()
       id: number;
       @Column()
-      full_name: string;
+      firstName: string;
+      @Column()
+      lastName: string;
       @Column()
       speciality: string;
+      @Column()
+      experience: string;
+      @Column()
+      foto: string;
       @OneToMany(()=> Visit,
       visit => visit.vet,{
              cascade: true
       })
       visits: Visit[]
-
 }

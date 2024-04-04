@@ -10,8 +10,12 @@ export class VetService {
 
   async create(createVetDto: CreateVetDto): Promise <Vet> {
     const vet = new Vet();
-    vet.full_name = createVetDto.full_name;
+    vet.firstName = createVetDto.firstName;
+    vet.lastName = createVetDto.lastName;
     vet.speciality = createVetDto.speciality;
+    vet.experience = createVetDto.experience;
+    vet.foto = createVetDto.foto;
+    
     return await this.vetRepository.save(vet);
   }
 
@@ -25,12 +29,21 @@ export class VetService {
 
   async update(id: number, updateVetDto: UpdateVetDto): Promise<Vet> {
     const vet = await this.vetRepository.findOne(id);
-    const {full_name, speciality} = updateVetDto;
-    if(full_name){
-      vet.full_name = full_name;
+    const {firstName, lastName, speciality, experience, foto} = updateVetDto;
+    if(firstName){
+      vet.firstName = firstName;
+    }
+    if(lastName){
+      vet.lastName = lastName;
     }
     if(speciality){
       vet.speciality = speciality;
+    }
+    if(experience){
+      vet.experience = experience;
+    }
+    if(foto){
+      vet.foto = foto;
     }
     return await this.vetRepository.save(vet);
   }

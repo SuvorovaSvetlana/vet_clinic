@@ -21,25 +21,6 @@ services:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
-      # image: postgres
-      # restart: always
-      # user: postgres
-      # secrets:
-      #   - db-password
-      # volumes:
-      #   - db-data:/var/lib/postgresql/data
-      # environment:
-      #   - POSTGRES_DB=example
-      #   - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-      # expose:
-      #   - 3036
-      # ports:
-      #  - 5432:5432
-      # healthcheck:
-      #    test: [ "CMD", "pg_isready" ]
-      #    interval: 10s
-      #    timeout: 5s
-      #    retries: 5
 volumes:
   db:
     name: postgres_db

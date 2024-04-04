@@ -3,16 +3,25 @@ import { CreateOwnerDto } from './dto/create-owner.dto';
 import { UpdateOwnerDto } from './dto/update-owner.dto';
 import { Owner } from './owner.entity'
 import { OwnerRepository } from './owner.repository';
+import  * as bcrypt from 'bcrypt'
+
 
 
 @Injectable()
 export class OwnerService {
   constructor(private readonly ownerRepository: OwnerRepository) {}
 
+  async hashPassword (password: string): Promise<string>{
+    const saltRounds = 10;
+    return bcrypt.hash(password, saltRounds)
+  }
+ 
  async createOwner(createOwnerDto: CreateOwnerDto): Promise <Owner> {
   const owner = new Owner();
-  owner.full_name = createOwnerDto.full_name;
-  owner.contacts = createOwnerDto.contacts;
+  owner.userName = createOwnerDto.userName;
+  owner.email = createOwnerDto.email;
+  const hashPassword = await this.hashPassword(createOwnerDto.password)
+  owner.password = hashPassword;
   owner.animals = createOwnerDto.animals;
   return await this.ownerRepository.save(owner);
   }
@@ -27,12 +36,12 @@ export class OwnerService {
 
   async update(id: number, updateOwnerDto: UpdateOwnerDto): Promise <Owner> {
     const owner = await this.ownerRepository.findOne(id) 
-    const {full_name, contacts} = updateOwnerDto;
-    if(full_name){
-      owner.full_name = full_name;
+    const {userName, email} = updateOwnerDto;
+    if(userName){
+      owner.userName = userName;
     }
-    if(contacts){
-      owner.contacts = contacts;
+    if(email){
+      owner.email = email;
     }
     return await this.ownerRepository.save(owner);
   }

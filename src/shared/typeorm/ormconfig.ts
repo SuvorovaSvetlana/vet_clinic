@@ -19,11 +19,12 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get<string>('DB_NAME'),
       username: this.configService.get<string>('DB_USERNAME'),
       password: this.configService.get<string>('DB_PASSWORD'),
-      entities: [Animal, Owner, Vet, Visit],
+      entities: [ Animal, Owner, Vet, Visit],
       migrations: ['src/shared/typeorm/migrations/*.{ts,js}'],
       logging: false,
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
     };
   }
 }
+//'../../**/entities/*.entity.{ts,js}'

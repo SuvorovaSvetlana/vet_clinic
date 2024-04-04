@@ -7,12 +7,12 @@ export class Owner {
       @PrimaryGeneratedColumn()
       id: number;
       @Column()
-      full_name: string;
+      userName: string;
       @Column()
-      contacts: string;
+      email: string;
       @Column()
-      contacts2: string;
-      @OneToMany(()=>Animal, 
+      password: string;
+      @OneToMany(()=>Animal,
       animal => animal.owner,{
       cascade: true,
       })

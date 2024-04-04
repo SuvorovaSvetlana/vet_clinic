@@ -1,6 +1,7 @@
 
 export class CreateOwnerDto {
-      full_name: string;
-      contacts: string;
+      userName: string;
+      email: string;
+      password: string;
       animals: [];
 }

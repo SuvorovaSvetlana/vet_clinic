@@ -21,12 +21,15 @@ export class Animal {
             type: "enum",
             enum: AnimalType
       })
-      animal_type: AnimalType
-      
+      animalType: AnimalType
+      @Column()
+      breed: string;
       @Column()
       name: string;
       @Column()
-      age: number;
+      dateOfBirth: Date;
+      @Column()
+      foto: string;
       @Column()
       ownerId: number;
       @ManyToOne(() => Owner, 

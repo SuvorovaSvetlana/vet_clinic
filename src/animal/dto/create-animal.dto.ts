@@ -4,9 +4,11 @@ import { AnimalType } from "../entities/animal.entity";
 
 
 export class CreateAnimalDto {
-      animal_type: AnimalType;
+      animalType: AnimalType;
+      breed: string;
       name: string;
-      age: number;
+      dateOfBirth: Date;
+      foto: string;
       owner: Owner;
       visits: [];
 }

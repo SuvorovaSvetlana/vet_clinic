@@ -10,9 +10,11 @@ export class AnimalService {
 
   async create (createAnimalDto: CreateAnimalDto): Promise <Animal>{
     const animal = new Animal();
-    animal.animal_type = createAnimalDto.animal_type;
+    animal.animalType = createAnimalDto.animalType;
+    animal.breed = createAnimalDto.breed;
     animal.name = createAnimalDto.name;
-    animal.age = createAnimalDto.age;
+    animal.dateOfBirth = createAnimalDto.dateOfBirth;
+    animal.foto = createAnimalDto.foto;
     animal.owner = createAnimalDto.owner;
     return await this.animalRepository.save(animal);
   }
@@ -27,15 +29,21 @@ export class AnimalService {
 
   async update(id: number, updateAnimalDto: UpdateAnimalDto) {
     const animal = await this.animalRepository.findOne(id);
-    const { animal_type, name, age } = updateAnimalDto;
-    if(animal_type){
-      animal.animal_type = animal_type;
+    const { animalType, breed, name, dateOfBirth, foto } = updateAnimalDto;
+    if(animalType){
+      animal.animalType = animalType;
+    }
+    if(breed){
+      animal.breed = breed;
     }
     if(name){
       animal.name = name;
     }
-    if(age){
-      animal.age = age;
+    if(dateOfBirth){
+      animal.dateOfBirth = dateOfBirth;
+    }
+    if(foto){
+      animal.foto = foto;
     }
     return await this.animalRepository.save(animal) ;
   }
