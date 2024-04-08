@@ -3,10 +3,9 @@ import { Repository } from "typeorm"
 import { Visit } from "./entities/visit.entity"
 
 export class VisitRepository {
-      constructor(
-            @InjectRepository(Visit)
-            private readonly visitRepo: Repository<Visit>
-          ){}
+      constructor( @InjectRepository(Visit)
+      private readonly visitRepo: Repository<Visit>){}
+      
          public async save(visit: Visit) {
             return await this.visitRepo.save(visit)
          } 

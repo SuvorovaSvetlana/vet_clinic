@@ -5,10 +5,7 @@ import { Vet } from '../../vet/entities/vet.entity';
 import { CreateVisitDto } from './create-visit.dto';
 
 export class UpdateVisitDto extends PartialType(CreateVisitDto) {
-      date: Date;
-      vetName: string;
+      date: string;
       vet: Vet;
-      animalName: string;
       animal: Animal;
-      visitPurpose: string;
 }

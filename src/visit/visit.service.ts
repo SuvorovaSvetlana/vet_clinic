@@ -10,12 +10,9 @@ export class VisitService {
  
   async create(createVisitDto: CreateVisitDto) {
     const visit  = new Visit();
-    visit.date = new Date();
-    visit.vetName = createVisitDto.vetName;
+    visit.date = createVisitDto.date;
     visit.vet = createVisitDto.vet;
-    visit.animalName = createVisitDto.animalName;
     visit.animal = createVisitDto.animal;
-    visit.visitPurpose = createVisitDto.visitPurpose;
     return await this.visitRepository.save(visit);
   }
 
@@ -29,29 +26,19 @@ export class VisitService {
 
   async update(id: number, updateVisitDto: UpdateVisitDto): Promise<Visit> {
     const visit = await this.visitRepository.findOne(id);
-    const {date, vetName, vet,  animalName, animal, visitPurpose} = updateVisitDto;
+    const {date, vet, animal} = updateVisitDto;
     if(date){
       visit.date = date;
-   
     }
     if(vet){
       visit.vet = vet;
     }
-    if(vetName){
-      visit.vetName = vetName;
-    }
     if(animal){
       visit.animal = animal;
     }
-    if(animalName){
-      visit.animalName = animalName;
-    }
-    if(visitPurpose){
-      visit.visitPurpose = visitPurpose;
-    }
     return await this.visitRepository.save(visit);
   }
-
+  
   async remove(id: number): Promise<void> {
     await this.visitRepository.delete(id);
   }

@@ -1,6 +1,6 @@
 
 import  { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Animal } from "../animal/entities/animal.entity";
+import { Animal } from "../../animal/entities/animal.entity";
 
 @Entity()
 export class Owner {

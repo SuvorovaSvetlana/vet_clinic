@@ -4,10 +4,7 @@ import { Vet } from "../../vet/entities/vet.entity";
 
 
 export class CreateVisitDto {
-      date: Date;
-      vetName: string;
+      date: string;
       vet: Vet;
-      animalName: string;
       animal: Animal;
-      visitPurpose: string;
 }

@@ -15,7 +15,6 @@ export class VetService {
     vet.speciality = createVetDto.speciality;
     vet.experience = createVetDto.experience;
     vet.foto = createVetDto.foto;
-    
     return await this.vetRepository.save(vet);
   }
 

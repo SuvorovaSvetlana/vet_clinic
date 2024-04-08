@@ -8,9 +8,10 @@ import { OwnerModule } from './owner/owner.module';
 import { VetModule } from './vet/vet.module';
 import { VisitModule } from './visit/visit.module';
 import { Animal } from './animal/entities/animal.entity';
-import { Owner } from './owner/owner.entity';
+import { Owner } from './owner/entities/owner.entity';
 import { Vet } from './vet/entities/vet.entity';
 import { Visit } from './visit/entities/visit.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { Visit } from './visit/entities/visit.entity';
     VetModule,
     VisitModule,
     AnimalModule,
+    AuthModule,
   ],
   controllers: [AppController], 
   providers: [AppService],

@@ -7,13 +7,7 @@ export class Visit {
       @PrimaryGeneratedColumn()
       id: number;
       @Column()
-      date: Date;
-      @Column()
-      vetName: string;
-      @Column()
-      animalName: string;
-      @Column()
-      visitPurpose: string;
+      date: string;
       @ManyToOne(()=> Animal,
       animal => animal.visits,
       {

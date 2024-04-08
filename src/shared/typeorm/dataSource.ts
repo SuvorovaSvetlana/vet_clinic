@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { Animal } from '../../animal/entities/animal.entity';
-import { Owner } from '../../owner/owner.entity';
+import { Owner } from '../../owner/entities/owner.entity';
 import { Visit } from '../../visit/entities/visit.entity';
 import { Vet } from '../../vet/entities/vet.entity';
 

@@ -8,8 +8,8 @@ import { Animal } from './entities/animal.entity';
 export class AnimalController {
   constructor(private readonly animalService: AnimalService) {}
 
-  @Post()
-  async create(@Body() createAnimalDto: CreateAnimalDto): Promise<Animal> {
+  @Post(':ownerId')
+  async create( @Body() createAnimalDto: CreateAnimalDto): Promise<Animal> {
     return this.animalService.create(createAnimalDto);
   }
 

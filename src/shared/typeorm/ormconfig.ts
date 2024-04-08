@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
 import { Animal } from "../../animal/entities/animal.entity";
-import { Owner } from "../../owner/owner.entity";
+import { Owner } from "../../owner/entities/owner.entity";
 import { Vet } from "../../vet/entities/vet.entity";
 import { Visit } from "../../visit/entities/visit.entity";
 

@@ -1,7 +1,9 @@
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Owner } from "./owner.entity";
+import { Owner } from "./entities/owner.entity";
 
+@Injectable()
 export class OwnerRepository{
       constructor(
             @InjectRepository(Owner)
@@ -12,6 +14,9 @@ export class OwnerRepository{
       }
       public async find(){
             return await this.ownerRepo.find()
+      }
+      public async findByEmail(email: string){
+            return await this.ownerRepo.findOneBy({email})
       }
       public async findOne(id: number){
             return await this.ownerRepo.findOne({relations:{animals: true}, where: {id}})
