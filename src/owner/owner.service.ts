@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AuthService } from '../auth/auth.service';
+import { AuthServiceOwner } from '../auth/auth.service';
 import { CreateOwnerDto } from './dto/create-owner.dto';
 import { UpdateOwnerDto } from './dto/update-owner.dto';
 import { Owner } from './entities/owner.entity'
@@ -8,7 +8,7 @@ import { OwnerRepository } from './owner.repository';
 @Injectable()
 export class OwnerService {
   constructor(
-    private authService: AuthService,
+    private authService: AuthServiceOwner,
     private readonly ownerRepository: OwnerRepository) {}
 
   async createOwner(createOwnerDto: CreateOwnerDto): Promise <Owner> {
@@ -33,9 +33,10 @@ export class OwnerService {
     return await this.ownerRepository.findOne(id);
   }
 
-  async update(id: number, updateOwnerDto: UpdateOwnerDto): Promise <Owner> {
-    const owner = await this.ownerRepository.findOne(id) 
+  async update(updateOwnerDto: UpdateOwnerDto): Promise <Owner> {
     const {userName, email} = updateOwnerDto;
+    const owner = await this.ownerRepository.findByEmail(updateOwnerDto.email) 
+   
     if(userName){
       owner.userName = userName;
     }

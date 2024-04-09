@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { AuthServiceVet } from '../auth/auth.service';
 import { CreateVetDto } from './dto/create-vet.dto';
 import { UpdateVetDto } from './dto/update-vet.dto';
 import { Vet } from './entities/vet.entity';
@@ -6,10 +7,14 @@ import { VetRepository } from './vet.repository';
 
 @Injectable()
 export class VetService {
-  constructor(private readonly vetRepository: VetRepository) {}
+  constructor(
+    private authService: AuthServiceVet,
+    private readonly vetRepository: VetRepository) {}
 
-  async create(createVetDto: CreateVetDto): Promise <Vet> {
+  async createVet(createVetDto: CreateVetDto): Promise <Vet> {
     const vet = new Vet();
+    vet.email = createVetDto.email;
+    vet.password = await this.authService.registration(createVetDto)
     vet.firstName = createVetDto.firstName;
     vet.lastName = createVetDto.lastName;
     vet.speciality = createVetDto.speciality;
@@ -17,7 +22,12 @@ export class VetService {
     vet.foto = createVetDto.foto;
     return await this.vetRepository.save(vet);
   }
-
+  
+  async authVet(createVetDto: CreateVetDto): Promise<any>{
+    const token = await this.authService.logIn(createVetDto)
+    console.log(token)
+    return token
+  }
   async findAll(): Promise <Vet[]> {
     return await this.vetRepository.find();
   }
@@ -26,9 +36,15 @@ export class VetService {
     return await this.vetRepository.findOne(id);
   }
 
-  async update(id: number, updateVetDto: UpdateVetDto): Promise<Vet> {
-    const vet = await this.vetRepository.findOne(id);
-    const {firstName, lastName, speciality, experience, foto} = updateVetDto;
+  async update(updateVetDto: UpdateVetDto): Promise<Vet> {
+    const {email, password, firstName, lastName, speciality, experience, foto} = updateVetDto;
+    const vet = await this.vetRepository.findByEmail(email)
+    if(email){
+      vet.email = email;
+    }
+    if(password){
+      vet.password = password;
+    }
     if(firstName){
       vet.firstName = firstName;
     }

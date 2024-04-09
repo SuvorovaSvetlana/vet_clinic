@@ -10,7 +10,7 @@ export class VetController {
 
   @Post()
   async create(@Body() createVetDto: CreateVetDto): Promise<Vet> {
-    return await this.vetService.create(createVetDto);
+    return await this.vetService.createVet(createVetDto);
   }
 
   @Get()
@@ -24,8 +24,8 @@ export class VetController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateVetDto: UpdateVetDto) {
-    return await this.vetService.update(+id, updateVetDto);
+  async update(@Body() updateVetDto: UpdateVetDto) {
+    return await this.vetService.update(updateVetDto);
   }
 
   @Delete(':id')

@@ -12,6 +12,8 @@ import { Owner } from './owner/entities/owner.entity';
 import { Vet } from './vet/entities/vet.entity';
 import { Visit } from './visit/entities/visit.entity';
 import { AuthModule } from './auth/auth.module';
+import { AdminModule } from './admin/admin.module';
+import { Admin } from './admin/entities/admin.entity';
 
 @Module({
   imports: [
@@ -26,7 +28,7 @@ import { AuthModule } from './auth/auth.module';
         password: ConfigService.get('DB_PASSWORD'),
         database: ConfigService.get('DB_NAME'),
         synchronize: true,
-        entities: [Animal, Owner, Vet, Visit],
+        entities: [Animal, Owner, Vet, Visit, Admin],
       }),
       inject: [ConfigService],
     }),
@@ -35,6 +37,7 @@ import { AuthModule } from './auth/auth.module';
     VisitModule,
     AnimalModule,
     AuthModule,
+    AdminModule,
   ],
   controllers: [AppController], 
   providers: [AppService],

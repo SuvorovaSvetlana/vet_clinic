@@ -6,6 +6,10 @@ export class Vet {
       @PrimaryGeneratedColumn()
       id: number;
       @Column()
+      email: string;
+      @Column()
+      password: string;
+      @Column()
       firstName: string;
       @Column()
       lastName: string;
