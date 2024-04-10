@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { VetService } from './vet.service';
 import { CreateVetDto } from './dto/create-vet.dto';
 import { UpdateVetDto } from './dto/update-vet.dto';
 import { Vet } from './entities/vet.entity';
+import { Public } from '../auth/public.decorator';
 
 @Controller('vets')
 export class VetController {
@@ -13,9 +14,20 @@ export class VetController {
     return await this.vetService.createVet(createVetDto);
   }
 
-  @Get()
-  async findAll() {
-    return await this.vetService.findAll();
+  @Public()
+  @Post('/login')
+  async LogIn(@Body() createVetDto: CreateVetDto) {
+    return await this.vetService.authVet(createVetDto)
+  }
+
+  @Get('/login')
+  async findAll(@Request() req) {
+    const role = req.user.role;
+    if(role==='admin'||role === 'vet'){
+      return await this.vetService.findAll();
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }  
   }
 
   @Get(':id')
@@ -23,13 +35,23 @@ export class VetController {
     return await this.vetService.findOne(+id);
   }
 
-  @Patch(':id')
-  async update(@Body() updateVetDto: UpdateVetDto) {
-    return await this.vetService.update(updateVetDto);
+  @Patch('/login/changeData')
+  async update(@Request() req, @Body() updateVetDto: UpdateVetDto) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.vetService.update(updateVetDto);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
-    return await this.vetService.remove(+id);
+  @Delete('/login')
+  async remove(@Request() req, @Body() lastName: string): Promise<void> {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.vetService.remove(lastName);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 }

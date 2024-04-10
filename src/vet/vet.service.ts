@@ -63,7 +63,9 @@ export class VetService {
     return await this.vetRepository.save(vet);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(lastName: string): Promise<void> {
+   const vet = await this.vetRepository.findByName(lastName);
+   const id = vet.id;
     await this.vetRepository.delete(id);
   }
 }

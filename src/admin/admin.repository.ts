@@ -25,5 +25,8 @@ export class AdminRepository{
       public async delete(id: number){
             return await this.adminRepo.delete(id)
       }
+      public async findByName (adminName: string){
+            return await this.adminRepo.findOneBy({adminName})
+      }
 
 }

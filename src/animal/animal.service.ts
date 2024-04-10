@@ -8,14 +8,14 @@ import { AnimalRepository } from './animal.repositopy';
 export class AnimalService {
   constructor(private readonly animalRepository: AnimalRepository){}
 
-  async create (createAnimalDto: CreateAnimalDto): Promise <Animal>{
+  async create (createAnimalDto: CreateAnimalDto, id: number): Promise <Animal>{
     const animal = new Animal();
     animal.animalType = createAnimalDto.animalType;
     animal.breed = createAnimalDto.breed;
     animal.name = createAnimalDto.name;
     animal.dateOfBirth = createAnimalDto.dateOfBirth;
     animal.foto = createAnimalDto.foto;
-    animal.owner = createAnimalDto.owner;
+    animal.ownerId = id;
     return await this.animalRepository.save(animal);
   }
 

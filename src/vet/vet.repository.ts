@@ -22,6 +22,10 @@ export class VetRepository{
             return await this.vetRepo.findOneBy({email})
       }
 
+      public async findByName(lastName: string){
+            return await this.vetRepo.findOneBy({lastName})
+      }
+
       public async delete(id: number){
             return await this.vetRepo.delete(id)
       }

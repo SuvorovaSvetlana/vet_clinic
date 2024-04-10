@@ -47,7 +47,9 @@ export class AdminService {
     return await this.adminRepository.save(admin);
   }
 
-  async remove(id: number) {
-    await this.adminRepository.delete(id);
-  }
+  async remove(adminName: string): Promise<void> {
+    const admin = await this.adminRepository.findByName(adminName);
+    const id = admin.id;
+     await this.adminRepository.delete(id);
+   }
 }
