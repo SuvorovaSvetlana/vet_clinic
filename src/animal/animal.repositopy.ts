@@ -16,6 +16,9 @@ export class AnimalRepository{
       public async findOne(id: number){
             return await this.animalRepo.findOne({relations:{owner: true,},where: {id}})
       }
+      public async findByName(name: string){
+            return await this.animalRepo.findOneBy({name})
+      }
       public async delete(id: number){
             return await this.animalRepo.delete(id)
       }

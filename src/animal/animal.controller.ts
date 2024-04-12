@@ -35,14 +35,14 @@ export class AnimalController {
   }
 
   @Patch('/changeData')
-  async update(@Request() req, @Body() updateAnimalDto: UpdateAnimalDto) {
+async update(@Request() req, @Body() body) {
     const role = req.user.role;
-    if(role === 'admin' || role === 'owner'){
-      return this.animalService.update(updateAnimalDto);
+    const {animalName, updateAnimalDto} = body;
+    if(role === 'admin'){
+      return this.animalService.update(animalName, updateAnimalDto);
     }else {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
     }
-    
   }
 
   @Delete(':id')

@@ -42,34 +42,7 @@
 			"response": []
 		},
 		{
-			"name": "all animals of one owner",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3030/owners/:id/animals",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"owners",
-						":id",
-						"animals"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "22"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add new owners with pet",
+			"name": "add new owner",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -83,6 +56,24 @@
 					}
 				},
 				"url": "http://localhost:3030/owners"
+			},
+			"response": []
+		},
+		{
+			"name": "owners/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"Peter\",\r\n    \"email\": \"asd@asd.ru\",\r\n    \"password\": \"asd123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3030/owners/auth"
 			},
 			"response": []
 		},
@@ -264,9 +255,15 @@
 		{
 			"name": "all vets",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBhc2QuYXNkIiwicGFzc3dvcmQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxMjc0MjU4MiwiZXhwIjoxNzEyNzQzMTgyfQ.eHD0ZRPGpfw3qbqmrVmBeCRF2DzsrlEGW7-x1to8PEk"
+					}
+				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:3030/vets"
+				"url": "http://localhost:3030/vets/login"
 			},
 			"response": []
 		},
@@ -317,35 +314,24 @@
 		{
 			"name": "change vet ",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwYW1AYXNkLnJ1IiwicGFzc3dvcmQiOiJwYW0xMjMiLCJyb2xlIjoib3duZXIiLCJpYXQiOjE3MTI3MzcyMTcsImV4cCI6MTcxMjczNzgxN30.2sZljDe2no3MISCEIlfn6l45cyYiQCwUnjlBi5KY5YQ"
+					}
+				},
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"full_name\": \"Mary\",\r\n    \"speciality\": \"nurse\"\r\n}",
+					"raw": "{\r\n    \"email\": \"...\",\r\n    \"password\": \"...\",\r\n    \"firstName\": \"...\",\r\n    \"lastName\": \"...\",\r\n    \"speciality\": \"...\",\r\n    \"experience\": \"...\",\r\n    \"foto\": \"src/vet/new.jpg\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": {
-					"raw": "http://localhost:3030/vets/:id",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"vets",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "11"
-						}
-					]
-				}
+				"url": "http://localhost:3030/vets/login/changeData"
 			},
 			"response": []
 		},
@@ -486,6 +472,107 @@
 						}
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "all admins",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhc2RAYXNkLnJ1IiwicGFzc3dvcmQiOiJhc2QxMjMiLCJyb2xlIjoib3duZXIiLCJpYXQiOjE3MTI2NTMwNjksImV4cCI6MTcxMjY1MzY2OX0.l5BABYbV2E-TkUJcEJfRfNBKO1xgxjzCxAbVQ4kOzt0"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3030/admins/login"
+			},
+			"response": []
+		},
+		{
+			"name": "one admin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/admins/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"admins",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"adminName\": \"Sara\",\r\n    \"email\": \"admin@asd.asd\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3030/admins"
+			},
+			"response": []
+		},
+		{
+			"name": "admins login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"adminName\": \"Mary\",\r\n    \"email\": \"admin@asd.asd\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3030/admins/login"
+			},
+			"response": []
+		},
+		{
+			"name": "change admin data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhc2RAYXNkLnJ1IiwicGFzc3dvcmQiOiJhc2QxMjMiLCJyb2xlIjoib3duZXIiLCJpYXQiOjE3MTI2NTMwNjksImV4cCI6MTcxMjY1MzY2OX0.l5BABYbV2E-TkUJcEJfRfNBKO1xgxjzCxAbVQ4kOzt0"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"adminName\": \"SaraNew\",\r\n    \"email\": \"admin@asd.asd\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3030/admins/login/changeData"
 			},
 			"response": []
 		}

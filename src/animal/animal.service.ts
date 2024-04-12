@@ -27,8 +27,8 @@ export class AnimalService {
     return await this.animalRepository.findOne(id);
   }
 
-  async update(id: number, updateAnimalDto: UpdateAnimalDto) {
-    const animal = await this.animalRepository.findOne(id);
+  async update(animalName: string, updateAnimalDto: UpdateAnimalDto) {
+    const animal = await this.animalRepository.findByName(animalName);
     const { animalType, breed, name, dateOfBirth, foto } = updateAnimalDto;
     if(animalType){
       animal.animalType = animalType;
