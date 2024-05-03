@@ -25,7 +25,7 @@ class BaseAuthService<T> implements IAuthService<T> {
     throw new Error("Not implemented");
   }
   async registration(args: T): Promise<string> {
-    throw new Error("Not implemented");
+    throw new Error("Not implemented");  
   }
 }
 

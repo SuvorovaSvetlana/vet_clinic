@@ -8,12 +8,21 @@ import { VisitRepository } from './visit.repository';
 export class VisitService {
   constructor (private readonly visitRepository: VisitRepository) {}
  
-  async create(createVisitDto: CreateVisitDto) {
+  async create(createVisitDto: CreateVisitDto): Promise<Visit> {
     const visit  = new Visit();
     visit.date = createVisitDto.date;
     visit.vet = createVisitDto.vet;
     visit.animal = createVisitDto.animal;
-    return await this.visitRepository.save(visit);
+
+    const visits =  await this.visitRepository.find()
+    const existsDate = visits.filter((exist)=> exist.date === visit.date)
+    const existsVisit = existsDate.filter((exist)=> exist.vet.id === visit.vet.id)
+
+    if(existsVisit){
+      return 
+    }else{
+      return await this.visitRepository.save(visit);
+    }
   }
 
   async findAll(): Promise<Visit[]> {

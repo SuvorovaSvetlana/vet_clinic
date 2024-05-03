@@ -13,7 +13,7 @@ import { VetModule } from '../vet/vet.module';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '600s'}
+      signOptions: { expiresIn: '6h'}
     }),
     forwardRef(() => OwnerModule),
     forwardRef(() => AdminModule),
