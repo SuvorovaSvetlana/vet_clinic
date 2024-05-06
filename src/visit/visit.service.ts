@@ -16,12 +16,15 @@ export class VisitService {
 
     const visits =  await this.visitRepository.find()
     const existsDate = visits.filter((exist)=> exist.date === visit.date)
-    const existsVisit = existsDate.filter((exist)=> exist.vet.id === visit.vet.id)
-
-    if(existsVisit){
-      return 
-    }else{
+    if(existsDate.length === 0){
       return await this.visitRepository.save(visit);
+    }else {
+      const existsVisit = existsDate.filter((exist)=> exist.vet.id === visit.vet.id)
+      if(existsVisit.length === 0){
+        return await this.visitRepository.save(visit);
+      }else{
+          return 
+      }
     }
   }
 

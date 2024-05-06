@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpException, HttpStatus } from '@nestjs/common';
-import { request } from 'http';
 import { AnimalService } from './animal.service';
 import { CreateAnimalDto } from './dto/create-animal.dto';
-import { UpdateAnimalDto } from './dto/update-animal.dto';
 import { Animal } from './entities/animal.entity';
+//import { UpdateAnimalDto } from './dto/update-animal.dto';
+//import { request } from 'http';
 
 @Controller('animals')
 export class AnimalController {
