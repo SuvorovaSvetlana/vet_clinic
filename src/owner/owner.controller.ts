@@ -33,7 +33,7 @@ export class OwnerController {
   }
    
 
-  @Patch('/login/changeData')
+  @Patch(':id')
   async update( @Request() req, @Body()  updateOwnerDto: UpdateOwnerDto) {
     console.log(req.user)
     return await this.ownerService.update(updateOwnerDto);

@@ -1,5 +1,6 @@
 
 import { Owner } from "../../owner/entities/owner.entity";
+import { Visit } from "../../visit/entities/visit.entity";
 import { AnimalType } from "../entities/animal.entity";
 
 
@@ -10,5 +11,5 @@ export class CreateAnimalDto {
       dateOfBirth: Date;
       foto: string;
       owner: Owner;
-      visits: [];
+      visits: Array<Visit>;
 }

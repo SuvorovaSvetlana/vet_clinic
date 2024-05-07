@@ -21,7 +21,7 @@ export class AdminController {
     return await this.adminService.authAdmin(createAdminDto)
   }
 
-  @Get('/login')
+  @Get()
   async findAll(@Request() req) {  
     const role = req.user.role;
     if(role === 'admin'){
@@ -32,17 +32,26 @@ export class AdminController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.adminService.findOne(+id);
+  findOne(@Param('id') id: string, @Request() req) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return this.adminService.findOne(+id);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
-  @Patch('/login/changeData')
-  async update( @Request() req, @Body() updateAdminDto: UpdateAdminDto) {
-    console.log(req.user)
-    return await this.adminService.update(updateAdminDto);
+  @Patch(':id')
+  async update(@Param('id') id:string, @Request() req, @Body() updateAdminDto: UpdateAdminDto) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.adminService.update(+id, updateAdminDto);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
-  @Delete('/login')
+  @Delete(':id')
   async remove(@Request() req, @Body() adminName: string) {
     const role = req.user.role;
     if(role === 'admin'){

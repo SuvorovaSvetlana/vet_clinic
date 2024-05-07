@@ -27,25 +27,29 @@ export class AnimalService {
     return await this.animalRepository.findOne(id);
   }
 
-  async update(animalName: string, updateAnimalDto: UpdateAnimalDto) {
-    const animal = await this.animalRepository.findByName(animalName);
-    const { animalType, breed, name, dateOfBirth, foto } = updateAnimalDto;
-    if(animalType){
-      animal.animalType = animalType;
+  async update(id: number, updateAnimalDto: UpdateAnimalDto, animalOwnerId: number): Promise <Animal> {
+    const animal = await this.animalRepository.findOne(id)
+    const ownerId = animal.ownerId;
+    const { animalType, breed, name, dateOfBirth, foto} = updateAnimalDto;
+    if(animalOwnerId === 0 || ownerId === animalOwnerId){
+      if(animalType){
+        animal.animalType = animalType;
+      }
+      if(breed){
+        animal.breed = breed;
+      }
+      if(name){
+        animal.name = name;
+      }
+      if(dateOfBirth){
+        animal.dateOfBirth = dateOfBirth;
+      }
+      if(foto){
+        animal.foto = foto;
+      }
+      return await this.animalRepository.save(animal) ;
     }
-    if(breed){
-      animal.breed = breed;
-    }
-    if(name){
-      animal.name = name;
-    }
-    if(dateOfBirth){
-      animal.dateOfBirth = dateOfBirth;
-    }
-    if(foto){
-      animal.foto = foto;
-    }
-    return await this.animalRepository.save(animal) ;
+    return // error ??
   }
 
   async remove(id: number): Promise <void> {

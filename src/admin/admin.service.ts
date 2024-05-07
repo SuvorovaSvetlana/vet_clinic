@@ -34,9 +34,10 @@ export class AdminService {
     return await this.adminRepository.findOne(id);
   }
 
-  async update(updateAdminDto: UpdateAdminDto): Promise <Admin> {
+  async update(id: number, updateAdminDto: UpdateAdminDto): Promise <Admin> {
+
     const {adminName, email} = updateAdminDto;
-    const admin = await this.adminRepository.findByEmail(updateAdminDto.email) 
+    const admin = await this.adminRepository.findOne(id)
    
     if(adminName){
       admin.adminName = adminName

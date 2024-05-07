@@ -35,7 +35,7 @@ export class VetController {
     return await this.vetService.findOne(+id);
   }
 
-  @Patch('/login/changeData')
+  @Patch(':id')
   async update(@Request() req, @Body() updateVetDto: UpdateVetDto) {
     const role = req.user.role;
     if(role === 'admin'){
@@ -45,7 +45,7 @@ export class VetController {
     }
   }
 
-  @Delete('/login')
+  @Delete(':id')
   async remove(@Request() req, @Body() lastName: string): Promise<void> {
     const role = req.user.role;
     if(role === 'admin'){

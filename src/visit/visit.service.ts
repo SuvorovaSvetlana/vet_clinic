@@ -18,10 +18,12 @@ export class VisitService {
     const existsDate = visits.filter((exist)=> exist.date === visit.date)
     if(existsDate.length === 0){
       return await this.visitRepository.save(visit);
+      // send email
     }else {
       const existsVisit = existsDate.filter((exist)=> exist.vet.id === visit.vet.id)
       if(existsVisit.length === 0){
         return await this.visitRepository.save(visit);
+        // send email
       }else{
           return 
       }

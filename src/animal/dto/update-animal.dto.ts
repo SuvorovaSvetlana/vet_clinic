@@ -2,6 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateAnimalDto } from './create-animal.dto';
 import { AnimalType } from '../entities/animal.entity';
 import { Owner } from '../../owner/entities/owner.entity';
+import { Visit } from '../../visit/entities/visit.entity';
 
 export class UpdateAnimalDto extends PartialType(CreateAnimalDto) {
       animalType: AnimalType;
@@ -10,5 +11,5 @@ export class UpdateAnimalDto extends PartialType(CreateAnimalDto) {
       dateOfBirth: Date;
       foto: string;
       owner: Owner;
-      visits:[];
+      visits: Array<Visit>;
 }
