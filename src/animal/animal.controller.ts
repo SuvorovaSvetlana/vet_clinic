@@ -9,12 +9,12 @@ export class AnimalController {
   constructor(private readonly animalService: AnimalService) {}
 
   @Post()
-  async create(@Request() req, @Body() createAnimalDto: CreateAnimalDto): Promise<Animal> {
-    const {id, role} = req.user
+  async create(@Param('id') id: string, @Request() req, @Body() createAnimalDto: CreateAnimalDto): Promise<Animal> {
+    const role = req.user.role;
     if(role === 'owner'){
-      return this.animalService.create(createAnimalDto, id);
+      return this.animalService.create(createAnimalDto, +id);
     }else {
-      // if admin, find owner by id
+      // if admin, find owner by id  
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
     }
   }
@@ -30,8 +30,14 @@ export class AnimalController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.animalService.findOne(+id);
+  async findOne(@Param('id') id: string, @Request() req) {
+    const role = req.user.role;
+    if(role === 'admin' || role === 'vet'){
+      return await this.animalService.findOne(+id);
+    }else{
+      const ownerId = req.user.id;
+    }
+  
   }
 
   @Patch(':id')
@@ -42,15 +48,18 @@ export class AnimalController {
     }else {
       if(role === 'owner'){
         const ownerId = req.user.id;
-        console.log(ownerId)
         return this.animalService.update(+id, updateAnimalDto, ownerId);
       }
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
     }
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise <void> {
-    return this.animalService.remove(+id);
+  remove(@Param('id') id: string, @Request() req): Promise <void> {
+    const  role = req.user.role;
+    if (role === 'admin'){
+      return this.animalService.remove(+id);
+    }
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
   }
 }
