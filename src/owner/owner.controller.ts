@@ -24,7 +24,7 @@ export class OwnerController {
 
   @Get()
   async findAll(@Request() req) {
-    const role = req.usesr.role;
+    const role = req.user.role;
     if(role === 'admin'){
       return await this.ownerService.findAll();
     }else {
@@ -49,10 +49,10 @@ export class OwnerController {
     const role = req.user.role;
     const ownerId = req.user.id;
     if(role === 'admin'){
-      return await this.ownerService.update(updateOwnerDto);
+      return await this.ownerService.update(+id, updateOwnerDto);
     }else{
       if(role === 'owner' && ownerId === +id){
-        return await this.ownerService.update(updateOwnerDto);
+        return await this.ownerService.update(+id, updateOwnerDto);
       }else{
         throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
       }

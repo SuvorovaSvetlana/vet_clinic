@@ -33,9 +33,9 @@ export class OwnerService {
     return await this.ownerRepository.findOne(id);
   }
   
-  async update(updateOwnerDto: UpdateOwnerDto): Promise <Owner> {
+  async update(id: number, updateOwnerDto: UpdateOwnerDto): Promise <Owner> {
     const {userName, email} = updateOwnerDto;
-    const owner = await this.ownerRepository.findByEmail(updateOwnerDto.email)
+    const owner = await this.ownerRepository.findOne(id)
     if(userName){
       owner.userName = userName;
     }
