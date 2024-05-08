@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { OwnerService } from './owner.service';
 import { CreateOwnerDto } from './dto/create-owner.dto';
 import { UpdateOwnerDto } from './dto/update-owner.dto';
@@ -23,24 +23,48 @@ export class OwnerController {
   }
 
   @Get()
-  async findAll() {
-    return await this.ownerService.findAll();
+  async findAll(@Request() req) {
+    const role = req.usesr.role;
+    if(role === 'admin'){
+      return await this.ownerService.findAll();
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
+    
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.ownerService.findOne(+id);
+  async findOne(@Param('id') id: string, @Request() req) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.ownerService.findOne(+id);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
    
 
   @Patch(':id')
-  async update( @Request() req, @Body()  updateOwnerDto: UpdateOwnerDto) {
-    console.log(req.user)
-    return await this.ownerService.update(updateOwnerDto);
+  async update(@Param('id') id: string, @Request() req, @Body()  updateOwnerDto: UpdateOwnerDto) {
+    const role = req.user.role;
+    const ownerId = req.user.id;
+    if(role === 'admin'){
+      return await this.ownerService.update(updateOwnerDto);
+    }else{
+      if(role === 'owner' && ownerId === +id){
+        return await this.ownerService.update(updateOwnerDto);
+      }else{
+        throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+      }
+    }
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise <void> {
-    return await this.ownerService.remove(+id);
+  async remove(@Param('id') id: string, @Request() req): Promise <void> {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.ownerService.remove(+id);
+    }
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
   }
 }
