@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { VisitService } from './visit.service';
 import { CreateVisitDto } from './dto/create-visit.dto';
 import { UpdateVisitDto } from './dto/update-visit.dto';
@@ -9,27 +9,52 @@ export class VisitController {
   constructor(private readonly visitService: VisitService) {}
 
   @Post()
-  async create(@Body() createVisitDto: CreateVisitDto): Promise<Visit> {
-    return await this.visitService.create(createVisitDto);
+  async create(@Body() createVisitDto: CreateVisitDto, @Request() req): Promise<Visit> {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.visitService.create(createVisitDto);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
-  @Get()
-  async findAll(): Promise<Visit[]> {
-    return await this.visitService.findAll();
+  @Get()  
+  async findAll(@Request() req): Promise<Visit[]> {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.visitService.findAll();
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.visitService.findOne(+id);
+  async findOne(@Param('id') id: string, @Request() req) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.visitService.findOne(+id);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateVisitDto: UpdateVisitDto) {
-    return await this.visitService.update(+id, updateVisitDto);
+  async update(@Param('id') id: string, @Body() updateVisitDto: UpdateVisitDto, @Request() req) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.visitService.update(+id, updateVisitDto);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.visitService.remove(+id);
+  async remove(@Param('id') id: string, @Request() req) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.visitService.remove(+id);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 }
