@@ -35,10 +35,8 @@ export class AdminService {
   }
 
   async update(id: number, updateAdminDto: UpdateAdminDto): Promise <Admin> {
-
     const {adminName, email} = updateAdminDto;
     const admin = await this.adminRepository.findOne(id)
-   
     if(adminName){
       admin.adminName = adminName
     }
@@ -48,9 +46,7 @@ export class AdminService {
     return await this.adminRepository.save(admin);
   }
 
-  async remove(adminName: string): Promise<void> {
-    const admin = await this.adminRepository.findByName(adminName);
-    const id = admin.id;
+  async remove(id: number): Promise<void> {
      await this.adminRepository.delete(id);
    }
 }

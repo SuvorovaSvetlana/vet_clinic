@@ -9,10 +9,15 @@ import { Admin } from './entities/admin.entity';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Public()
+
   @Post()
-  create(@Body() createAdminDto: CreateAdminDto): Promise<Admin> {
-    return this.adminService.createAdmin(createAdminDto);
+  async create(@Request() req, @Body() createAdminDto: CreateAdminDto): Promise<Admin> {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return this.adminService.createAdmin(createAdminDto);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
   @Public()
@@ -52,10 +57,10 @@ export class AdminController {
   }
 
   @Delete(':id')
-  async remove(@Request() req, @Body() adminName: string) {
+  async remove(@Request() req, @Param('id') id:string) {
     const role = req.user.role;
     if(role === 'admin'){
-      return await this.adminService.remove(adminName) 
+      return await this.adminService.remove(+id) 
     }else {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
     }
