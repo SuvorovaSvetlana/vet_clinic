@@ -36,9 +36,9 @@ export class VetService {
     return await this.vetRepository.findOne(id);
   }
 
-  async update(updateVetDto: UpdateVetDto): Promise<Vet> {
+  async update(id: number, updateVetDto: UpdateVetDto): Promise<Vet> {
     const {email, password, firstName, lastName, speciality, experience, foto} = updateVetDto;
-    const vet = await this.vetRepository.findByEmail(email)
+    const vet = await this.vetRepository.findOne(id)
     if(email){
       vet.email = email;
     }
@@ -63,9 +63,7 @@ export class VetService {
     return await this.vetRepository.save(vet);
   }
 
-  async remove(lastName: string): Promise<void> {
-   const vet = await this.vetRepository.findByName(lastName);
-   const id = vet.id;
+  async remove(id: number): Promise<void> {
     await this.vetRepository.delete(id);
   }
 }

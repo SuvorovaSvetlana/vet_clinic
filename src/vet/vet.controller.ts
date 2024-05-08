@@ -10,8 +10,13 @@ export class VetController {
   constructor(private readonly vetService: VetService) {}
 
   @Post()
-  async create(@Body() createVetDto: CreateVetDto): Promise<Vet> {
-    return await this.vetService.createVet(createVetDto);
+  async create(@Request() req, @Body() createVetDto: CreateVetDto): Promise<Vet> {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.vetService.createVet(createVetDto);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    }
   }
 
   @Public()
@@ -20,7 +25,7 @@ export class VetController {
     return await this.vetService.authVet(createVetDto)
   }
 
-  @Get('/login')
+  @Get()
   async findAll(@Request() req) {
     const role = req.user.role;
     if(role==='admin'||role === 'vet'){
@@ -31,25 +36,30 @@ export class VetController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.vetService.findOne(+id);
+  async findOne(@Param('id') id: string, @Request() req) {
+    const role = req.user.role;
+    if(role === 'admin'){
+      return await this.vetService.findOne(+id);
+    }else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+    } 
   }
 
   @Patch(':id')
-  async update(@Request() req, @Body() updateVetDto: UpdateVetDto) {
+  async update(@Request() req, @Body() updateVetDto: UpdateVetDto, @Param('id') id:string) {
     const role = req.user.role;
     if(role === 'admin'){
-      return await this.vetService.update(updateVetDto);
+      return await this.vetService.update(+id, updateVetDto);
     }else {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
     }
   }
 
   @Delete(':id')
-  async remove(@Request() req, @Body() lastName: string): Promise<void> {
+  async remove(@Request() req, @Param('id') id:string): Promise<void> {
     const role = req.user.role;
     if(role === 'admin'){
-      return await this.vetService.remove(lastName);
+      return await this.vetService.remove(+id);
     }else {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
     }
