@@ -9,8 +9,12 @@ export class VisitHistoryController {
   constructor(private readonly visitHistoryService: VisitHistoryService) {}
 
   @Post()
-  async create(@Param('id') id:string, @Request() req, @Body() createVisitHistoryDto: CreateVisitHistoryDto){
-      return await this.visitHistoryService.create(createVisitHistoryDto, +id)
+  async create(@Request() req, @Body() createVisitHistoryDto: CreateVisitHistoryDto){
+      const role = req.user.role;
+      if(role === 'admin' || role === 'vet'){
+            return await this.visitHistoryService.create(createVisitHistoryDto)
+      }
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
   }
 
   @Get()

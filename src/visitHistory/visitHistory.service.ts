@@ -8,7 +8,7 @@ import { UpdateVisitHistoryDto } from "./dto/update-visitHistory.dto";
 export class VisitHistoryService {
   constructor(private readonly visitHistoryRepository: VisitHistoryRepository){}
 
-  async create (createVisitHistoryDto: CreateVisitHistoryDto, id: number): Promise <VisitHistory>{
+  async create (createVisitHistoryDto: CreateVisitHistoryDto): Promise <VisitHistory>{
       const visitHistory = new VisitHistory();
       visitHistory.visitDate = createVisitHistoryDto.visitDate;
       visitHistory.orders = createVisitHistoryDto.orders;

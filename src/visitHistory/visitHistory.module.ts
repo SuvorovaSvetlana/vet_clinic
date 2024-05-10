@@ -10,4 +10,4 @@ import { VisitHistoryService } from "./visitHistory.service";
       controllers: [VisitHistoryController],
       providers: [VisitHistoryService, VisitHistoryRepository]
     })
-    export class VisitHistoryModule {}
+    export class VisitHistoryModule {}  
