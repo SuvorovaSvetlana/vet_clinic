@@ -12,9 +12,8 @@ export class AnimalController {
   async create(@Param('id') id: string, @Request() req, @Body() createAnimalDto: CreateAnimalDto): Promise<Animal> {
     const role = req.user.role;
     if(role === 'owner'){
-      return this.animalService.create(createAnimalDto, +id);
+      return await this.animalService.create(createAnimalDto, +id);
     }else {
-      // if admin, find owner by id  
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
     }
   }

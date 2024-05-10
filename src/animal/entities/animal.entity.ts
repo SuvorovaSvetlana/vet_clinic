@@ -21,7 +21,7 @@ export class Animal {
             type: "enum",
             enum: AnimalType
       })
-      animalType: AnimalType
+      animalType: AnimalType;
       @Column()
       breed: string;
       @Column()
