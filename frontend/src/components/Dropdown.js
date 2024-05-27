@@ -22,10 +22,7 @@ function Dropdown ({options, value, onChange}){
             );
       });
 
-      let content = 'Select...';
-      if(selection) {
-            content = selection.label;
-      }
+
       return (
             <div  className="w-48 relative">
                   <Panel className="flex justify-between items-center cursor-pointer" onClick={ handleClick }>
