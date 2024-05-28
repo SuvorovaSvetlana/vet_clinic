@@ -1,4 +1,4 @@
-import Dropdown from "..Dropdown/components/Dropdown";
+import Dropdown from "../components/Dropdown";
 import { useState } from "react";
 
 
