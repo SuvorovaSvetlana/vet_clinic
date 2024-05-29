@@ -5,6 +5,7 @@ function Sidebar (){
             {label: 'Dropdown', path: '/'},
             {label: 'Button', path: '/buttonPage'},
             {label: 'Modal', path: '/modalPage'},
+            {label: 'table', path: '/tablePage'},
       ];
 
       const renderedLinks = links.map((link) => {
