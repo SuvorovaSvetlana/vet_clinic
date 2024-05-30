@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GoArrowSmallDown, GoArrowSmallUp } from "react-icons/go"
+import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import Table from "./Table";
 
 function SortableTable(props) {
@@ -65,24 +65,24 @@ function SortableTable(props) {
 function getIcons (label, sortBy, sortOrder){
       if(label !== sortBy){
             return <div>
-                  <GoArrowSmallUp/>
-                  <GoArrowSmallDown/>
+                  <GoChevronUp/>
+                  <GoChevronDown/>
             </div>;
       }
 
       if(sortOrder === null) {
             return <div>
-                        <GoArrowSmallUp/>
-                        <GoArrowSmallDown/>
+                        <GoChevronUp/>
+                        <GoChevronDown/>
                   </div>;
       } else if (sortOrder === 'asc'){
             return <div>
-                   <GoArrowSmallUp/>
+                   <GoChevronUp/>
              </div>;
       }else if(sortOrder === 'desc'){
             return <div>
-                         <GoArrowSmallDown/>
-                   </div>;
+                         <GoChevronDown />
+                   </div>;  
       }
 }
 export default SortableTable;
