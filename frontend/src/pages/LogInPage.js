@@ -1,4 +1,10 @@
+import SignIn from '../components/SignIn'
+
 function LogInPage (){
-      return <div>LogIn page</div>
+      // localStorage.setItem('accessToken', body.accessToken)
+      // localStorage.getItem('accessToken')
+      return (<div>
+            <SignIn/>
+      </div>)
 }
 export default LogInPage;

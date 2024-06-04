@@ -10,17 +10,17 @@ services:
       - 3030:3030
     depends_on:
       - db
-  client:
-    build:
-      dockerfile: ./Dockerfile
-      context: ./frontend
-    environment:
-      NODE_ENV: production
-    ports:
-      - 3000:3000
-    depends_on:
-      - db
-      - server
+  # client:
+  #   build:
+  #     dockerfile: ./Dockerfile
+  #     context: ./frontend
+  #   environment:
+  #     NODE_ENV: production
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - db
+  #     - server
   db:
     image: postgres:latest
     container_name: postgres_db

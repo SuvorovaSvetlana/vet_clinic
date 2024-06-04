@@ -1,18 +1,27 @@
-import Sidebar from './components/Sidebar';
 import Route from './components/Route';
-import ButtonPage from './pages/ButtonPage';
-import DropdownPage from './pages/DropdownPage';
-import ModalPage from './pages/ModalPage';
-import TablePage from './pages/TablePage';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
+import ContactsPage from './pages/ContactsPage';
+import PricesPage from './pages/PricesPage';
+import LogInPage from './pages/LogInPage';
+import AboutUsPage from './pages/AboutUsPage';
+
+// import Sidebar from './components/Sidebar';
+// import ButtonPage from './pages/ButtonPage';
+// import DropdownPage from './pages/DropdownPage';
+// import ModalPage from './pages/ModalPage';
+// import TablePage from './pages/TablePage';
 
 function App() {
       return (<div>
-                  <div className="flex-no-wrap relative flex w-full items-center justify-between bg-neutral-100 py-2 shadow-md shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4">
+                  <div>
                         <Header/>
                         <div>
                               <Route path='/'><HomePage/></Route>
+                              <Route path='/aboutUsPage'><AboutUsPage/></Route>
+                              <Route path='/contactsPage'><ContactsPage/></Route>
+                              <Route path='/pricesPage'><PricesPage/></Route>
+                              <Route path='/logInPage'><LogInPage/></Route>
                         </div>
                   </div>
             
@@ -28,3 +37,4 @@ function App() {
       </div>)
 }
 export default App;
+// className="container flex-no-wrap relative flex w-full items-center justify-between py-2"
