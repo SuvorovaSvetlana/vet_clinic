@@ -19,6 +19,7 @@ export class OwnerController {
   @Public()
   @Post('/login')
   async logIn(@Body() createOwnerDto: CreateOwnerDto) {
+    console.log(createOwnerDto);
     return await this.ownerService.authOwner(createOwnerDto)
   }
 

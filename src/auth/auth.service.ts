@@ -19,6 +19,7 @@ class BaseAuthService<T> implements IAuthService<T> {
     return bcrypt.hash(password, saltRounds)
   }
   async comparePassword (userPassword: string, hashPassword: string): Promise<boolean>{
+    console.log(userPassword, hashPassword);
     return bcrypt.compare(userPassword, hashPassword)
   }
   async logIn(args: T): Promise<any> {

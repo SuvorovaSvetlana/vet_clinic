@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -30,27 +30,45 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const [userName, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleName = (event) => {
+    setName(event.target.value)
+  }
+
+  const handleEmail = (event) => {
+    setEmail(event.target.value)
+  }
+
+  const handlePassword = (event) => {
+    setPassword(event.target.value)
+  }
+  const newUserData = async (event)  =>{
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+      try{
+        const response = await fetch ('http://localhost:3030/owners/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            userName,
+            email,
+            password,
+          })
+        });
+         if(response.ok){
+          const result = await response.json()
+          localStorage.setItem('accessToken', result.access_token);
+          console.log(result)
+         } else{
+          console.error("Error:", response.statusText)
+         }
 
-  // const [user, setUser] = useState([]);
-  // async function newUserData() {
-  //  const result = await fetch ('http://localhost:3000/owners', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //   console.log(result)
-  //   return result
-  // }
-
+      } catch(error) {
+        console.error('Error:', error)
+      }
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -69,7 +87,18 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={newUserData} noValidate sx={{ mt: 1 }}>
+          <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              value={userName} onChange={handleName}
+            />
             <TextField
               margin="normal"
               required
@@ -78,7 +107,7 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              value={email} onChange={handleEmail}
             />
             <TextField
               margin="normal"
@@ -89,6 +118,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password} onChange={handlePassword}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -121,3 +151,7 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+  // headers: {
+  //   'Content-Type': 'application/json',
+  //   'Authorization': `Bearer ${localStorage.getItem('accessToken')}`},
