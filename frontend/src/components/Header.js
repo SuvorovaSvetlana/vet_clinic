@@ -3,10 +3,11 @@ import Link from "./Link";
 function Header (){
       const links = [
             {label: 'Home', path: '/'},
-            {label: 'AbotUs', path: '/aboutUsPage'},
+            {label: 'About Us', path: '/aboutUsPage'},
             {label: 'Contacts', path: '/contactsPage'},
             {label: 'Prices', path: '/pricesPage'},
-            {label: 'LogIn', path: '/logInPage'},
+            {label: 'Sign In', path: '/signInPage'},
+            {label: 'Sign Up', path: '/signUpPage'},
       ];
 
       const renderedLinks = links.map((link) => {
