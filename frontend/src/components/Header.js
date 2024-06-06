@@ -9,7 +9,6 @@ function Header (){
             {label: 'Sign In', path: '/signInPage'},
             {label: 'Sign Up', path: '/signUpPage'},
       ];
-
       const renderedLinks = links.map((link) => {
             return <Link
                         key={link.label}

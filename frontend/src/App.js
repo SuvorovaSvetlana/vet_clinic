@@ -6,6 +6,10 @@ import PricesPage from './pages/PricesPage';
 import SignInPage from './pages/SignInPage';
 import AboutUsPage from './pages/AboutUsPage';
 import SignUpPage from './pages/SignUpPage';
+import AdminPage from './pages/AdminPage';
+import VetPage from './pages/VetPage'
+
+
 
 function App() {
       return (<div>
@@ -18,6 +22,8 @@ function App() {
                               <Route path='/pricesPage'><PricesPage/></Route>
                               <Route path='/signInPage'><SignInPage/></Route>
                               <Route path='/signUpPage'><SignUpPage/></Route>
+                              <Route path='/adminPage'><AdminPage/></Route>
+                              <Route path='/vetPage'><VetPage/></Route>
                         </div>
                   </div>
       </div>)

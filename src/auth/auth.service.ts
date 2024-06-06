@@ -7,6 +7,9 @@ import { CreateOwnerDto } from '../owner/dto/create-owner.dto';
 import { OwnerRepository } from '../owner/owner.repository';
 import { CreateVetDto } from '../vet/dto/create-vet.dto';
 import { VetRepository } from '../vet/vet.repository';
+import { Owner } from '../owner/entities/owner.entity';
+import { Admin } from '../admin/entities/admin.entity';
+import { Vet } from '../vet/entities/vet.entity';
 
 interface IAuthService<T> {
   logIn(args: T): Promise<any>;
@@ -33,6 +36,8 @@ class BaseAuthService<T> implements IAuthService<T> {
 @Injectable()
 export class AuthServiceOwner extends BaseAuthService<CreateOwnerDto> {
   constructor( private ownerRepository: OwnerRepository,
+    private adminRepository: AdminRepository,
+    private vetRepository: VetRepository,
     private jwtService: JwtService) {
       super();
     }
@@ -45,14 +50,22 @@ export class AuthServiceOwner extends BaseAuthService<CreateOwnerDto> {
     async logIn (createOwnerDto: CreateOwnerDto): Promise<{ access_token: string}> {
       const email = createOwnerDto.email;
       const password = createOwnerDto.password;
+
       
-      const owner = await this.ownerRepository.findByEmail(email);
-      const hashedPassword = owner.password;
-      const id = owner.id;
+      let user: Owner | Admin | Vet = await this.ownerRepository.findByEmail(email);
+      if (!user) {
+        user = await this.adminRepository.findByEmail(email);
+        if (!user) {
+          user = await this.vetRepository.findByEmail(email);
+        }
+      }
+      const hashedPassword = user.password;
+      const id = user.id;
+      const role = user.role;
 
       const isLogIn = await this.comparePassword(password, hashedPassword)
       if(isLogIn){
-        const payload = {id, email, password, role: "owner"};
+        const payload = {id, email, password, role};
         return  {access_token: await this.jwtService.signAsync(payload)};
       }
     }

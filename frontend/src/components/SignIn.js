@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { jwtDecode} from 'jwt-decode';
+import useNavigation from '../hooks/use-navigation';
 
 function Copyright(props) {
   return (
@@ -34,6 +35,8 @@ export default function SignIn() {
   const [userName, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const {navigate, currentPath } = useNavigation();
 
   const handleName = (event) => {
     setName(event.target.value)
@@ -63,7 +66,16 @@ export default function SignIn() {
           localStorage.setItem('accessToken', result.access_token);
           const token =result.access_token;
           const decoded = jwtDecode(token)
-
+          if(decoded.role === 'owner'){
+            console.log(decoded.role)
+            navigate('/')
+          } else if(decoded.role === 'admin') {
+            console.log(decoded.role)   
+            navigate('/adminPage')
+          } else if(decoded.role === 'vet'){
+            console.log(decoded.role)
+            navigate('/vetPage')
+          }
           console.log(decoded)
          } else{
           console.error("Error:", response.statusText)

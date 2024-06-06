@@ -8,9 +8,10 @@ function DropdownPage() {
             setSelection(option)
       };
       const options =[
-            {label: 'Not spicy', value: 'mild'},
-            {label: 'A little spicy', value: 'spicy'},
-            {label: 'Realy spicy!', value: 'extra_spicy'},
+            {label: 'Select owner', value: 'owner'},
+            {label: 'Select vet', value: 'vet'},
+            {label: 'Select animal', value: 'animal'},
+            {label: 'Select vist', value: 'visit'},
       ];
 
       return <Dropdown 

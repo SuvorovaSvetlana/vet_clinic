@@ -2,17 +2,17 @@ import Link from "./Link";
 
 function Sidebar (){
       const links = [
-            {label: 'Dropdown', path: '/'},
-            {label: 'Button', path: '/buttonPage'},
-            {label: 'Modal', path: '/modalPage'},
-            {label: 'Table', path: '/tablePage'},
+            {label: 'Vet', path: '/searchVetPage'},
+            {label: 'Owner', path: '/searchOwnerPage'},
+            {label: 'Vist', path: '/searchVisitPage'},
+            {label: 'Animal', path: '/searchAnimalpage'},
       ];
 
       const renderedLinks = links.map((link) => {
             return <Link 
                         key={link.label} 
                         to={link.path} 
-                        className='mb-3'
+                        className='mb-3 ml-10'
                         activeClassName="font-bold border-l-4 bodred-blue-500 pl-2"
                   >
                         {link.label}

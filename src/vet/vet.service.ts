@@ -5,6 +5,7 @@ import { UpdateVetDto } from './dto/update-vet.dto';
 import { Vet } from './entities/vet.entity';
 import { VetRepository } from './vet.repository';
 
+
 @Injectable()
 export class VetService {
   constructor(

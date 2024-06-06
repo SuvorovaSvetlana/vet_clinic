@@ -3,6 +3,8 @@ import { Visit } from "../../visit/entities/visit.entity";
 
 @Entity()
 export class Vet {
+      role = 'vet'
+
       @PrimaryGeneratedColumn()
       id: number;
       @Column()

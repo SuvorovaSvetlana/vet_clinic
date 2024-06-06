@@ -4,6 +4,8 @@ import { Animal } from "../../animal/entities/animal.entity";
 
 @Entity()
 export class Owner {
+      role = 'owner'
+
       @PrimaryGeneratedColumn()
       id: number;
       @Column()
