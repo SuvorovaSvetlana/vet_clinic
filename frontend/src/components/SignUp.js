@@ -59,9 +59,7 @@ const defaultTheme = createTheme();
         });
          if(response.ok){
           const result = await response.json()
-          localStorage.setItem('accessToken', result.access_token);
           console.log(result)
-
          } else{
           console.error("Error:", response.statusText)
          }
@@ -70,14 +68,6 @@ const defaultTheme = createTheme();
         console.error('Error:', error)
       }
   }
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -97,7 +87,7 @@ const defaultTheme = createTheme();
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={newUserData} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField

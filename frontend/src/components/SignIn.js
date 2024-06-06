@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { jwtDecode} from 'jwt-decode';
 
 function Copyright(props) {
   return (
@@ -45,7 +46,7 @@ export default function SignIn() {
   const handlePassword = (event) => {
     setPassword(event.target.value)
   }
-  const newUserData = async (event)  =>{
+  const dataToCheck = async (event)  =>{
     event.preventDefault();
       try{
         const response = await fetch ('http://localhost:3030/owners/login', {
@@ -60,8 +61,10 @@ export default function SignIn() {
          if(response.ok){
           const result = await response.json()
           localStorage.setItem('accessToken', result.access_token);
-          console.log(result)
+          const token =result.access_token;
+          const decoded = jwtDecode(token)
 
+          console.log(decoded)
          } else{
           console.error("Error:", response.statusText)
          }
@@ -88,7 +91,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={newUserData} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={dataToCheck} noValidate sx={{ mt: 1 }}>
           <TextField
               margin="normal"
               required
